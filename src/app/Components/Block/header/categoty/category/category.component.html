@@ -1,0 +1,14 @@
+  <!--Caterogy-->
+  <ol class="list-group list-group" *ngFor="let product of products|  slice:0:5 ; let i =index">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{i+1}}. {{product.name}}</div>
+        {{product.description}}
+      </div>
+      <span class="badge bg-primary rounded-pill">{{product.price}}</span>
+    </li>
+    
+    
+  </ol> 
+<!--Category-->
+
