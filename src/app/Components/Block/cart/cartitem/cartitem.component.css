@@ -1,0 +1,47 @@
+.center {
+  text-align: center;
+  display: flex !important;
+  height: 100%;
+  z-index: 2000;
+}
+
+h4,
+h6 {
+  font-weight: bold;
+}
+
+.btn-cart {
+  background-color: white;
+  color: red;
+  font-size: 30px;
+  width: 30px;
+  border: none;
+  margin: 10px;
+  display: inline-block;
+  align-items: center;
+}
+.text-body {
+  text-decoration: none;
+}
+.d-flex.flex-row.align-items-center .btn-cart {
+  display: inline-block !important
+  ;
+}
+.btn.btn-danger {
+  height: 35px;
+  line-height: 15px;
+  margin-top: 3px;
+}
+.btn.btn-success {
+  margin-top: 15px;
+}
+.center-head {
+  margin: auto;
+  margin-top: 100px;
+}
+.head-cart {
+  float: right;
+  font-size: 30px;
+  line-height: 15px;
+  color: #f18822;
+}

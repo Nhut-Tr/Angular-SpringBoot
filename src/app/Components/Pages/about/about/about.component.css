@@ -1,0 +1,29 @@
+.font-subtitle-1{
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+}
+.owl-wrapper{
+    display: flex;
+    margin-top: 20px;
+    box-shadow:  2px 3px 3px gray;
+    border-radius: 3px;
+}
+.item img{
+    border-radius: 5px;
+}
+.header-title span{
+    font-size: 17px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.important li{
+    font-size: 17px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}

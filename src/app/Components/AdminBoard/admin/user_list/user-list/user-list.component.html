@@ -1,0 +1,79 @@
+
+<div class="body-user-list">
+  <div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-5">
+              <h2>User <b>Management</b></h2>
+            </div>
+            <form class="d-flex form-inline my-2 my-lg-0 col-sm-7">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                name="searchName" [(ngModel)]="searchName" (ngModelChange)="search()"
+              />
+              <button class="btn btn-outline-warning" type="submit"> Search</button>
+            </form>
+          </div>
+        </div>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let us of user
+                  | paginate
+                    : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: count
+                      }
+              "
+            >
+              <td>{{ us.id }}</td>
+              <td>{{ us.username }}</td>
+              <td>{{ us.email }}</td>
+
+              <td>{{ getnameJson(us.role) }}</td>
+              <td>
+                <div class="button-crud">
+                  <a
+                    class=" btn-xs fix-button"
+                    (click)="updateUser(us.id)"
+                    ><span class="fa fa-edit"></span> Update</a
+                  >
+                  <a
+                    (click)="deleteUser(us.id)"
+                    class=" btn-xs fix-button"
+                    ><span class="fa fa-remove"></span> Delete</a
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="clearfix"></div>
+        <div class="fix-paginator">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+            class="page-button"
+          >
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

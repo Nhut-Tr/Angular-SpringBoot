@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductClass } from 'src/app/product-class.model';
-import { ProductServiceService } from 'src/app/product-service.service';
+import { ProductClass } from 'src/app/class/product-class.model';
+import { ProductServiceService } from 'src/app/service/product-service.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-category',
@@ -13,14 +14,17 @@ export class CategoryComponent implements OnInit {
   currentProduct: ProductClass = {};
   currentIndex = -1;
   title='';
-  constructor(private productService: ProductServiceService) { }
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  constructor(private productService: ProductServiceService,private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
   this.retrieveProduct();
+  
   }
   retrieveProduct(): void{
     this.productService.getList().subscribe(data=> {
-      console.log(data);
       this.products = data;
     });
     

@@ -1,1 +1,138 @@
-<h1>This is home</h1>
+<div class="col-sm-md-12">
+  <div class="container-head">
+    <img
+      class="banner-left"
+      src="https://cdn.tgdd.vn/2022/11/banner/720-220-720x220-45.png"
+      alt=""
+    />
+
+    <figure class="banner col-lg-9">
+      <img
+        class="banner-right"
+        src="https://cdn.tgdd.vn/2022/11/banner/POCODesk-380x200.png"
+        alt=""
+      />
+    </figure>
+  </div>
+
+  <div class="new">
+    <h3 class="text-new text-bg-dark p-3" routerLink="/product">
+      Some New Product Launches
+    </h3>
+  </div>
+
+  <div
+    id="carouselExampleSlidesOnly"
+    class="carousel slide"
+    data-bs-ride="carousel"
+    data-interval="3000"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <img
+          src="https://images.mobileshop.eu/1666596667/banner/Add a heading (27).jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item active">
+        <img
+          src="https://images.mobileshop.eu/1666343630/banner/42614Pro%20(4).jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/sabikhit/Samung/S22-Ultra-Gamex/Revised-gamex/D39447767_WLD_SamsungGalaxyS22Ultra_Quiz_BAU_1242x450_1.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+    </div>
+  </div>
+  <div class="big-sale">
+    <h2 routerLink="" class="text-bg-dark p-3">Big Sale</h2>
+    <div class="owl-item active">
+      <div
+        class="item"
+        data-id="267212"
+        data-pos="2"
+        *ngFor="let pro of product | slice: 0:4"
+      >
+        <div class="item-label">
+          <span class="fa fa-fire"> Sale</span>
+        </div>
+        <div class="item-img">
+          <img
+            data-src="{{ pro.img }}"
+            class="lazyloaded"
+            alt=""
+            width="240"
+            height="225"
+            src=""
+          />
+        </div>
+        <div class="product">
+          <p class="result-label temp5">
+            <img
+              width="20"
+              height="20"
+              class="lazyloaded"
+              alt="WORLD CUP SALE TO"
+              data-src="https://cdn.tgdd.vn/2022/11/content/WORLD+CUP+SALE+TO-51x51.png"
+              src="https://cdn.tgdd.vn/2022/11/content/WORLD+CUP+SALE+TO-51x51.png"
+            /><span>BIG SALE WORLD CUP</span>
+          </p>
+          <h5 class="name-product">{{ pro.name }}</h5>
+          <strong class="price">Only: ${{ pro.price }} </strong>
+        </div>
+        <!-- </a> -->
+      </div>
+    </div>
+  </div>
+  <div class="new">
+    <h3 class="text-new text-bg-dark p-3" routerLink="/product">Best Sale</h3>
+    <div class="block-top-home__right-banner">
+      <div class="right-banner">
+        <img
+          src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/Fold3.png"
+          alt="GALAXY FOLD3 Giá rẻ bất ngờ"
+          loading="lazy"
+          class="right-banner__img"
+        />
+        <img
+          src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/iphone-14-right.png"
+          alt="IPHONE 14<br>MỞ BÁN GIÁ TỐT"
+          loading="lazy"
+          class="right-banner__img"
+        />
+      </div>
+    </div>
+    <div class="owl-item active">
+      <div
+        class="item2"
+        data-id="267212"
+        data-pos="2"
+        *ngFor="let chk of checkout | slice: 0:4"
+      >
+        <div class="item-img">
+          <img
+            data-src="{{ chk.products?.img }}"
+            class="lazyloaded"
+            alt=""
+            width="240"
+            height="225"
+            src=""
+          />
+        </div>
+        <div class="product2">
+          <h5>{{ chk.products?.name }}</h5>
+          <strong class="price">Only: ${{ chk.products?.price }} </strong><br />
+          <strong>Sold: {{ chk.quantity }}</strong>
+        </div>
+        <!-- </a> -->
+      </div>
+    </div>
+  </div>
+</div>

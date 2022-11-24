@@ -1,0 +1,14 @@
+
+
+.pagination{
+    padding-left: 400px!important;
+    font-weight: bold;
+}
+.page-link:hover{
+    background-color:#007ACC ;
+    color: white;
+}
+.page-pagi{
+    margin-left: 320px;
+    display: inline-block;
+}

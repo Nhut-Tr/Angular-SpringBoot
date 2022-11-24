@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card p-2">
+    <h5>Update User</h5>
+    <form action="" style="font-size: 12px" (ngSubmit)="onSubmit()">
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product name"
+          name="name"
+          [(ngModel)]="user.username"
+        />
+        <label for="name"> Username: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product price"
+          name="price"
+          [(ngModel)]="user.email"
+        />
+        <label for="price"> Email: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter image"
+          name="image"
+        />
+        <label for="description"> Image: </label>
+      </div>
+      <label for="formFileMultiple" class="form-label">Role: </label>
+      <select
+        (change)="onChangeRole($event)"
+        class="form-select"
+        aria-label="Default select example"
+      >
+        <option *ngFor="let role of roles" [ngValue]="role">
+          {{ role.name }}
+        </option>
+      </select>
+      <br />
+      <button type="submit" class="btn btn-info mt-2">Submit</button>
+      <button type="submit" class="btn btn-info mt-2 button-clear">
+        Clear
+      </button>
+    </form>
+  </div>
+</div>

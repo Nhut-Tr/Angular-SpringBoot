@@ -1,12 +1,16 @@
-<app-header></app-header>
+<app-header (newItemEvent)="logout()"></app-header>
 
 <div class="row">
-    <div class="col-lg-3">
-     
-      <app-category></app-category>
-    </div>
+  <div class="col-12 col-lg-3">
+    <app-noti *ngIf="!showUserBoard && !showAdminBoard"></app-noti>
 
-    <div class="col-lg-9">
-        <router-outlet></router-outlet>
-    </div>
+    <app-category *ngIf="showUserBoard"></app-category>
+    <app-menu-bar *ngIf="showAdminBoard"></app-menu-bar>
+  </div>
+  <div class="col-12 col-lg-9">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<lib-ng-toast></lib-ng-toast>
+<ng-confirm></ng-confirm>
+<app-footer></app-footer>

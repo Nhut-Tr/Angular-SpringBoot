@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <!-- Left -->
+
+    <!-- Right -->
+    <div class="col-lg-12">
+      <div class="card position-sticky top-0">
+        <div class="p-3 bg-light bg-opacity-10">
+          <h6 class="title">Order Detail</h6>
+          <div
+            class="d-flex justify-content-between mb-1 small"
+            *ngFor="let cart of carts; let i = index"
+          >
+            <label class="label-pay"
+              >{{ i + 1 }}. {{ cart.products?.name }}</label
+            >
+
+            <label class="label-pay"
+              >Price: <b>${{ cart.price }}</b></label
+            >
+
+            <label class="label-pay"
+              >Quantity: <b>{{ cart.quantity }}</b></label
+            >
+
+            <hr />
+          </div>
+          <br />
+          <div class="d-flex justify-content-between mb-4 small">
+            <span class="pay"
+              >TOTAL: <b class="total-all">${{ totalAll }}</b></span
+            >
+          </div>
+        </div>
+        <hr />
+        <br />
+        <h2 style="text-align: center">Delivery Information</h2>
+        <label class="label-input"><span>Name:</span></label>
+        <div class="input-deli">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="name"
+            class="form-control"
+            placeholder="Enter your name..."
+          />
+        </div>
+        <br />
+        <label class="label-input"><span>Address:</span></label>
+        <div class="input-deli">
+          <input
+            type="text"
+            name="address"
+            [(ngModel)]="address"
+            class="form-control"
+            placeholder="Enter your address..."
+          />
+        </div>
+        <br />
+        <label class="label-input"><span>Phone number:</span></label>
+        <div class="input-deli">
+          <input
+            type="text"
+            name="phonenumber"
+            [(ngModel)]="phonenumber"
+            class="form-control"
+            placeholder="Enter your phone number..."
+          />
+        </div>
+        <hr />
+        <div class="payment">
+          <div class="title-page">Mode of payment</div>
+
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
