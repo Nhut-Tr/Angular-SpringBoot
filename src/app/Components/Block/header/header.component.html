@@ -1,5 +1,24 @@
 <!--Banner-->
-<div
+<div class="header-bn-top">
+  <div class="header-bn-normal">
+    <div class="banner-media" style="background-color: rgb(0, 0, 0)">
+      <div class="media-slider">
+        <div class="item visible" data-background-color="#000000">
+          <a
+            onmousedown="return rwt(this,'advertise',2823)"
+            [routerLink]="['/product']"
+            routerLinkActive="router-link-active"
+            target="_blank"
+            ><img
+              src="https://www.xtmobile.vn/vnt_upload/weblink/7hed.jpg"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div
   id="carouselExampleSlidesOnly"
   class="carousel slide"
   data-bs-ride="carousel"
@@ -15,7 +34,7 @@
       <img src="assets/bg3.jpg" class="d-block w-100" alt="..." />
     </div>
   </div>
-</div>
+</div> -->
 <!--/Banner-->
 
 <!--Navbar-->
@@ -59,7 +78,9 @@
         <a routerLink="/home">Home</a>
       </li>
       <li class="item" *ngIf="showAdminBoard">
-        <a routerLink="/admin/user-list">Admin Board</a>
+        <b
+          >Welcome: <span class="welcome-name">{{ name }}</span></b
+        >
       </li>
       <li class="item" *ngIf="!showAdminBoard">
         <a routerLink="/about">About</a>
@@ -91,10 +112,10 @@
         </ul>
       </li>
       <li class="item fix-button">
-        <a routerLink="/login" *ngIf="!isLoggedIn">Log In</a>
+        <a routerLink="/login" *ngIf="!user">Log In</a>
       </li>
       <li class="item fix-button">
-        <a *ngIf="isLoggedIn" (click)="logout()">Log out</a>
+        <a *ngIf="user" (click)="logout()">Log out</a>
       </li>
     </ul>
   </div>

@@ -6,27 +6,29 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  products?:ProductClass[];
+  products?: ProductClass[];
   dataProduct?: ProductClass[];
   currentProduct: ProductClass = {};
   currentIndex = -1;
-  title='';
+  title = '';
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
-  constructor(private productService: ProductServiceService,private tokenStorageService: TokenStorageService) { }
+  constructor(
+    private productService: ProductServiceService,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
-  this.retrieveProduct();
-  
+    this.retrieveProduct();
   }
-  retrieveProduct(): void{
-    this.productService.getList().subscribe(data=> {
-      this.products = data;
+  retrieveProduct(): void {
+    this.productService.getList(0, 6).subscribe((data: any) => {
+      this.products = data.content;
+      console.log(data);
     });
-    
   }
 }

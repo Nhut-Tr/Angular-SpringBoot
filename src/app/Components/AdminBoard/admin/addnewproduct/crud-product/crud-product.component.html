@@ -1,24 +1,178 @@
 <div class="container">
-    <div class="card p-2">
-        <h5> Insert New Product</h5>
-        <form action="" style="font-size:12px;" (ngSubmit)="onSubmit()">
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product name" name="name" [(ngModel)]="product.name">
-                <label for="name"> Name Product: </label>
-            </div>
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product price" name="price" [(ngModel)]="product.price">
-                <label for="price"> Price: </label>
-            </div>
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product description" name="description" [(ngModel)]="product.description">
-                <label for="description"> Description: </label>
-            </div>
-                <label for="formFileMultiple" class="form-label">Upload Image:</label>
-                <input class="form-control" type="text" id="formFileMultiple" name="image" [(ngModel)]="product.img" />
-                <br>  
-            <button type="submit" class="btn btn-info mt-2"> Add Product </button>
-            <button type="submit" class="btn btn-info mt-2 button-clear"> Clear </button>
-        </form>
-    </div>
+  <div class="card p-2">
+    <h5>Insert New Product</h5>
+    <form action="" style="font-size: 12px" [formGroup]="addProductForm">
+      <div class="input-group">
+        <span class="input-group-text">Name Product*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter name in here..."
+          name="name"
+          [ngClass]="{
+            'is-invalid':
+            addProductForm.controls['productName'].dirty && addProductForm.controls['productName'].errors?.['required']
+          }"
+          formControlName="productName"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addProductForm.controls['productName'].dirty &&
+            addProductForm.controls['productName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addProductForm.controls['productName'].errors?.['required']"
+          >
+            *Name is required
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Price*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter price in here..."
+          name="price"
+          [ngClass]="{
+            'is-invalid':
+            addProductForm.controls['price'].dirty && addProductForm.controls['price'].errors?.['required']
+          }"
+          formControlName="price"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addProductForm.controls['price'].dirty &&
+            addProductForm.controls['price'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addProductForm.controls['price'].errors?.['required']"
+          >
+            *Price is required
+          </div>
+        </div>
+        <div
+          class="text-danger title-error"
+          *ngIf="addProductForm.controls['price'].errors?.['pattern']"
+        >
+          *Please enter number
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Description*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter description in here..."
+          name="description"
+          [ngClass]="{
+            'is-invalid':
+            addProductForm.controls['description'].dirty && addProductForm.controls['description'].errors?.['required']
+          }"
+          formControlName="description"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addProductForm.controls['description'].dirty &&
+            addProductForm.controls['description'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addProductForm.controls['description'].errors?.['required']"
+          >
+            *Description is required
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Quantity*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter quantity in here..."
+          name="quantity"
+          [ngClass]="{
+            'is-invalid':
+            addProductForm.controls['quantity'].dirty && addProductForm.controls['quantity'].errors?.['required']
+          }"
+          formControlName="quantity"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addProductForm.controls['quantity'].dirty &&
+            addProductForm.controls['quantity'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addProductForm.controls['quantity'].errors?.['required']"
+          >
+            *Quantity is required
+          </div>
+        </div>
+        <div
+          class="text-danger title-error"
+          *ngIf="addProductForm.controls['quantity'].errors?.['pattern']"
+        >
+          *Quantity must be number
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Upload Image*</span>
+        <input
+          class="form-control"
+          type="text"
+          id="formFileMultiple"
+          name="image"
+          placeholder="Enter image in here..."
+          [ngClass]="{
+            'is-invalid':
+            addProductForm.controls['image'].dirty && addProductForm.controls['image'].errors?.['required']
+          }"
+          formControlName="image"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addProductForm.controls['image'].dirty &&
+            addProductForm.controls['image'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addProductForm.controls['image'].errors?.['required']"
+          >
+            *Image is required
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="button-feature">
+        <button
+          type="submit"
+          class="btn btn-success button-clear"
+          (click)="clear()"
+        >
+          Clear
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success btn-add"
+          [disabled]="addProductForm.invalid"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

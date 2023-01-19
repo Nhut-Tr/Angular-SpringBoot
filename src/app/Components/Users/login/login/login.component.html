@@ -1,13 +1,14 @@
 <div class="col-md-12">
   <div class="container">
     <form
+      id="form-login"
       *ngIf="!isLoggedIn"
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
       novalidate
     >
-      <h1 style="text-align: center">Login Form</h1>
+      <h2 style="text-align: center">Login Form</h2>
       <div class="form-group">
         <label for="userName">Username</label>
         <input
@@ -16,7 +17,7 @@
           name="userName"
           [(ngModel)]="form.userName"
           required
-          minlength="4"
+          minlength="3"
           #userName="ngModel"
         />
         <div

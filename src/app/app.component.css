@@ -1,0 +1,106 @@
+.event-sticky {
+  position: sticky;
+  top: 20px;
+}
+.sticky-item.sticky-right {
+  right: -105px;
+}
+.sticky-item.sticky-left {
+  left: -105px;
+}
+.sticky-item.sticky-right img {
+}
+.event-sticky .sticky-item {
+  position: absolute;
+
+  width: calc(60px + (100 - 60) * ((100vw vw - 1320px) / (1420 - 1320)));
+  max-width: 120px;
+  z-index: 999;
+  animation-duration: 5s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-name: sway;
+}
+@media only screen and (min-width: 1600px) {
+  .sticky-item.sticky-right {
+    right: -220px;
+  }
+  .sticky-item.sticky-left {
+    left: -220px;
+  }
+  .sticky-item.sticky-right img {
+  }
+  .event-sticky .sticky-item {
+    position: absolute;
+    transform: translateX(45%);
+    width: calc(60px + (100 - 60) * ((100vw vw - 1320px) / (1420 - 1320)));
+    max-width: 170px;
+    z-index: 999;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-name: sway;
+  }
+}
+
+@-webkit-keyframes sways {
+  33% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    -webkit-transform-origin: 10px 16px;
+    transform-origin: 10px 16px;
+  }
+  60% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    -webkit-transform-origin: 5px 8px;
+    transform-origin: 5px 8px;
+  }
+}
+
+@keyframes sways {
+  33% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    -webkit-transform-origin: 10px 16px;
+    -transform-origin: 10px 16px;
+  }
+  60% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    -webkit-transform-origin: 5px 8px;
+    transform-origin: 5px 8px;
+  }
+}
+
+@keyframes sway {
+  33% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    -webkit-transform-origin: 5px 8px;
+    transform-origin: 5px 8px;
+  }
+  66% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    -webkit-transform-origin: 5px 8px;
+    transform-origin: 5px 8px;
+  }
+}
+
+@keyframes sways {
+  33% {
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    -webkit-transform-origin: 10px 16px;
+    transform-origin: 10px 16px;
+  }
+  60% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    -webkit-transform-origin: 5px 8px;
+    transform-origin: 5px 8px;
+  }
+}

@@ -3,47 +3,89 @@
     class="form-control me-2"
     type="search"
     placeholder="Search"
-    name="searchName" [(ngModel)]="searchName" (ngModelChange)="search()"
+    name="searchName"
+    [(ngModel)]="searchName"
+    [value]="searchName"
+    (ngModelChange)="searchFunction()"
   />
-  <button class="btn btn-outline-warning" type="submit">Search</button>
+  <button class="btn-warning" type="submit" (click)="clearData()">Clear</button>
 </form>
-<div
-  class="card mb-3 fixProduct"
-  *ngFor="
-    let product of products
-      | paginate
-        : {
-            itemsPerPage: tableSize,
-            currentPage: page,
-            totalItems: count
-          };
-    let i = index
-  "
->
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{ product.img }}" class="img-fluid rounded-start" alt="..." />
-    </div>
-    <div class="col-md-8" fixMargin>
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
-        <p class="card-text">
-          <strong>Giá: ${{ product.price }}</strong>
-        </p>
+<div class="radio">
+  <label for="" class="label-filter">Filter Price:</label>
+  <div class="form-check" *ngFor="let p of prices">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="flexRadioDefault"
+      [value]="p"
+      id="flexRadioDefault1"
+      [(ngModel)]="value"
+      (ngModelChange)="searchFunction()"
+    />
+    <label class="form-check-label" for="flexRadioDefault1">
+      ${{ p.min }}-${{ p.max }}
+    </label>
+  </div>
+
+  <!-- <button class="btn btn-success" (click)="filterTable()">Search</button> -->
+</div>
+<div class="row">
+  <div
+    class="card mb-3 fixProduct mx-1"
+    *ngFor="
+      let product of products
+        | paginate
+          : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+      let i = index
+    "
+  >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="{{ product.img }}"
+          class="img-fluid rounded-start"
+          alt="..."
+        />
       </div>
-      <button
-        type="button"
-        class="btn btn-success"
-        style="margin-bottom: 10px; margin-left: 15px"
-        (click)="updateCart(product.id)"
-      >
-        Click Buy
-      </button>
+      <div class="col-md-8" fixMargin>
+        <div class="card-body">
+          <h5
+            class="card-title"
+            style="white-space: nowrap; text-overflow: ellipsis"
+          >
+            {{ product.name }}
+          </h5>
+          <p
+            class="card-text"
+            style="
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            "
+          >
+            {{ product.description }}
+          </p>
+          <p class="card-text">
+            <strong>Price: ${{ product.price }}</strong>
+          </p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          style="margin-bottom: 10px; margin-left: 15px"
+          (click)="updateCart(product.id)"
+        >
+          Click Buy
+        </button>
+      </div>
     </div>
   </div>
 </div>
-
+<div class="text-center" *ngIf="products.length === 0">Products Not Found</div>
 <div class="clearfix"></div>
 
 <div class="page-pagi">

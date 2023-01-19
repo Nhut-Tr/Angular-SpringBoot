@@ -1,206 +1,209 @@
-#carouselExampleSlidesOnly img{
-    height: 200px;
-    object-fit: cover;
+#carouselExampleSlidesOnly img {
+  height: 200px;
+  object-fit: cover;
 }
 
-  body {
-    font-family: sans-serif;
-  }
-  nav {
-    background: #222;
-    padding: 0px 20px;
-  }
-  ul {
-    list-style-type: none;
-  }
-  a {
-   font-weight: bold;
-    text-decoration: none;
-    color:white;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  .logo a:hover {
-    text-decoration: none;
-  }
-  .menu li {
-    font-size: 16px;
-    white-space: nowrap;
-  
-  }
-  .item a{
-    text-decoration: none;
-  }
-  .item a:hover{
-    color: black;
-  }
-  .logo a,
-  .toggle a {
-    font-size: 20px;
-  }
-  .button.secondary {
-    border-bottom: 1px #444 solid;
-  }
-  
-  /* Mobile menu */
-  .menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-  }
-  .toggle {
-    order: 1;
-  }
-  .item.button {
-    order: 2;
-  }
-  .item {
-    width: 100%;
-    text-align: center;
-    order: 3;
-    display: none;
-    padding: 15px;
-  }
-  .item.active {
-    display: block;
-  }
-  
-  /* Navbar Toggle */
-  .toggle {
-    cursor:pointer;
-  }
-  .bars {
-    background: #999;
-    display: inline-block;
-    height: 2px;
-    position: relative;
-    transition: background .2s ease-out;
-    width: 18px;
-  }
-  .bars:before,
-  .bars:after {
-    background: #999;
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    transition: all .2s ease-out;
-    width: 100%;
-  }
-  .bars:before {
-    top: 5px;
-  }
-  .bars:after {
-    top: -5px;
-  }
-  
-  /* Tablet menu */
-  @media all and (min-width: 468px) {
-    .menu {
-        justify-content: center;
-    }
-  
-    .logo {
-        flex: 1;
-    }
-  
-    .item.button {
-        width: auto;
-        order: 1;
-        display: block;
-    }
-    .toggle {
-        order: 2;
-    }
-    .button.secondary {
-        border: 0;
-    }
-    .button a {
-      color: #F18822;
-        padding: 7.5px 15px;
-        background: white;
-        border: 1px #F18822 solid;
-        border-radius:50em;
-    }
-    .button.secondary a {
-        background: transparent;    
-    }
-    .button a:hover {
-        text-decoration: none;
-        transition:all .25s;
-    }
-    .button:not(.secondary) a:hover {
-        background: #F18822;
-       
-        color: white;
-    }
-    .button.secondary a:hover {
-        color: #ddd;
-    } 
-  }
-  
-  /* Desktop menu */
-  @media all and (min-width: 768px) {
-    .item {
-        display: block;
-        width: auto;
-    }
-    .toggle {
-        display: none;
-    }
-    .logo {
-        order: 0;
-    }
-    .item {
-        order: 1;
-    }
-    .button {
-        order: 2;
-    }
-   
-    .menu li.button {
-        padding-right: 0;
-    }
-  }
-.fix-button{
+body {
+  font-family: sans-serif;
+}
+nav {
+  background: #222;
+  padding: 0px 20px;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: underline;
+}
+.logo a:hover {
+  text-decoration: none;
+}
+.menu li {
+  font-size: 16px;
+  white-space: nowrap;
+}
+.item a {
+  text-decoration: none;
+}
+.item a:hover {
+  color: black;
+}
+.logo a,
+.toggle a {
+  font-size: 20px;
+}
+.button.secondary {
+  border-bottom: 1px #444 solid;
+}
+
+/* Mobile menu */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+.toggle {
+  order: 1;
+}
+.item.button {
+  order: 2;
+}
+.item {
+  width: 100%;
+  text-align: center;
+  order: 3;
+  display: none;
+  padding: 15px;
+}
+.item.active {
+  display: block;
+}
+
+/* Navbar Toggle */
+.toggle {
   cursor: pointer;
 }
-.btn-header{
+.bars {
+  background: #999;
+  display: inline-block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 18px;
+}
+.bars:before,
+.bars:after {
+  background: #999;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+.bars:before {
+  top: 5px;
+}
+.bars:after {
+  top: -5px;
+}
+
+/* Tablet menu */
+@media all and (min-width: 468px) {
+  .menu {
+    justify-content: center;
+  }
+
+  .logo {
+    flex: 1;
+  }
+
+  .item.button {
+    width: auto;
+    order: 1;
+    display: block;
+  }
+  .toggle {
+    order: 2;
+  }
+  .button.secondary {
+    border: 0;
+  }
+  .button a {
+    color: #f18822;
+    padding: 7.5px 15px;
+    background: white;
+    border: 1px #f18822 solid;
+    border-radius: 50em;
+  }
+  .button.secondary a {
+    background: transparent;
+  }
+  .button a:hover {
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .button:not(.secondary) a:hover {
+    background: #f18822;
+
+    color: white;
+  }
+  .button.secondary a:hover {
+    color: #ddd;
+  }
+}
+
+/* Desktop menu */
+@media all and (min-width: 768px) {
+  .item {
+    display: block;
+    width: auto;
+  }
+  .toggle {
+    display: none;
+  }
+  .logo {
+    order: 0;
+  }
+  .item {
+    order: 1;
+  }
+  .button {
+    order: 2;
+  }
+
+  .menu li.button {
+    padding-right: 0;
+  }
+}
+.fix-button {
+  cursor: pointer;
+}
+.btn-header {
   display: flex;
   margin-right: 17px;
   cursor: pointer;
 }
-.btn-header{
-  
-  color:white;
+.btn-header {
+  color: white;
   font-weight: bold;
-  
 }
-.btn-header img{
+.btn-header img {
   right: 20px;
 }
 
-.btn-header img{
-  width: 35px; height: 30px; object-fit: cover;
-  
+.btn-header img {
+  width: 35px;
+  height: 30px;
+  object-fit: cover;
 }
 
-nav{
-  background-color: #F18822!important;
+nav {
+  background-color: #f18822 !important;
 }
-.dropdown-menu{
-  background-color: #F18822;
+.dropdown-menu {
+  background-color: #f18822;
 }
-.dropdown-item{
+.dropdown-item {
   border-radius: 10px;
 }
-.d-flex{
+.d-flex {
   margin-right: 180px;
   display: block;
-}.btn.btn-outline-warning{
+}
+.btn.btn-outline-warning {
   background-color: white;
 }
-
+.welcome-name {
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+}

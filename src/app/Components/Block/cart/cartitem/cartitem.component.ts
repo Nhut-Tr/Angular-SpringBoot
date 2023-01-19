@@ -30,6 +30,9 @@ export class CartitemComponent implements OnInit, OnDestroy {
   cartObj = [];
   isTempy = false;
   show = false;
+  tableSize: number = 3;
+  listSize = [3, 6, 9, 12, 15];
+  page: number = 1;
   autohide = true;
   isDisable = false;
   cartStorageChange = new Subscription();
@@ -39,8 +42,6 @@ export class CartitemComponent implements OnInit, OnDestroy {
     private tokenStorage: TokenStorageService,
     private router: Router,
     private userService: UserService,
-    private productService: ProductServiceService,
-    private checkoutService: CheckoutService,
     private toast: NgToastService
   ) {}
   ngOnDestroy(): void {
@@ -51,6 +52,9 @@ export class CartitemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const userName = this.tokenStorage.getUser().id;
+    this.cartService.getCartByUserId(userName).subscribe((data) => {
+      this.cartService.cartServiceItem.next(data);
+    });
     this.userService
       .getUserById(userName)
       .subscribe((data) => (this.userId = data.id));
@@ -116,13 +120,22 @@ export class CartitemComponent implements OnInit, OnDestroy {
       productId,
       price,
     };
-    this.cartService.update(cart).subscribe((data) => {
-      this.cartService
-        .getCartByUserId(this.tokenStorage.getUser().id)
-        .subscribe((datas) => {
-          this.cartService.cartServiceItem.next(datas);
+    this.cartService.update(cart).subscribe(
+      (data) => {
+        this.cartService
+          .getCartByUserId(this.tokenStorage.getUser().id)
+          .subscribe((datas) => {
+            this.cartService.cartServiceItem.next(datas);
+          });
+      },
+      (err) => {
+        this.toast.error({
+          detail: 'Warning quantity',
+          summary: err.error.message,
+          duration: 5000,
         });
-    });
+      }
+    );
   }
 
   minusTotals(id: number, quantity: number, productId: number, price: any) {
@@ -131,7 +144,6 @@ export class CartitemComponent implements OnInit, OnDestroy {
     quantity = quantity - 1;
     if (quantity === 0) {
       this.deleteCart(id);
-     
     } else {
       const cart = {
         id: id,
@@ -155,5 +167,12 @@ export class CartitemComponent implements OnInit, OnDestroy {
 
   checkout() {
     this.router.navigate(['/checkout']);
+  }
+  onTableDataChange(event: any) {
+    this.page = event;
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
   }
 }

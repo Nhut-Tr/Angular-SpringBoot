@@ -1,30 +1,25 @@
+import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Users } from '../class/users';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorageService {
-  constructor(private router:Router,private route:ActivatedRoute) { }
+  currentUser = new BehaviorSubject<any>(null);
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   signOut(): void {
     window.localStorage.clear();
-    this.router.navigate(['/home']);
-    // location.reload();
-   
-   
+    this.router.navigate(['/login']);
+    this.currentUser.next(null);
   }
-  // public setRoles(roles: []){
-  //   localStorage.setItem('roles',JSON.stringify(roles));
-  // }
 
-  // public getRoles(roles:string[]){
-  //   return localStorage.getItem('roles');
-  // }
-  public saveToken(token: string){
+  public saveToken(token: string) {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.setItem(TOKEN_KEY, token);
   }
@@ -44,14 +39,11 @@ export class TokenStorageService {
       return JSON.parse(user);
     }
 
-    return {};
+    return null;
   }
 
-
-  
-
   // public isLogin():void{
-    
+
   //   return this.getToken() && this.getUser();
   // }
 }

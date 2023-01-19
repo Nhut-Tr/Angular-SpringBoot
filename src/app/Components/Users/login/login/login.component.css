@@ -36,3 +36,9 @@ button {
 .fixButton {
   margin-left: 20px;
 }
+.container {
+  width: 700px;
+}
+.toast-right-top.error {
+  height: 100px !important;
+}

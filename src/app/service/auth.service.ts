@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   register(
-    userName: string,
+    username: string,
     email: string,
     password: string,
     fullName: string
@@ -34,7 +34,7 @@ export class AuthService {
     return this.http.post(
       AUTH_API + 'register',
       {
-        userName,
+        username,
         email,
         fullName,
         password,

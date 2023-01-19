@@ -97,3 +97,16 @@
 .product2 h5 {
   margin-top: 10px;
 }
+.button-home {
+  margin-left: 80px;
+  margin-top: 10px;
+}
+.btn-bot {
+  margin: 20px;
+  margin-left: 35px;
+}
+.result-label.temp5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

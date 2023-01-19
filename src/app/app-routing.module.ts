@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { ProfileComponent } from './Components/Users/profile/profile/profile.component';
 import { ChangepasswordComponent } from './Components/Users/changepassword/changepassword/changepassword.component';
 import { ResetpasswordComponent } from './Components/Users/resetpassword/resetpassword/resetpassword.component';
@@ -27,35 +28,45 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'product', component: CategoriesComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'product', canActivate: [AuthGuard], component: CategoriesComponent },
+  { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify', component: VerificationComponent },
   { path: 'forgot', component: ForgotpasswordComponent },
-  { path: 'changepassword', component: ChangepasswordComponent },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'changepassword',
+    canActivate: [AuthGuard],
+    component: ChangepasswordComponent,
+  },
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
   { path: 'reset', component: ResetpasswordComponent },
-  { path: 'product_list', component: ProductListComponent },
-  { path: 'user_list', component: UserListComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'cartitem', component: CartitemComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'history', component: HistoryCartComponent },
+  {
+    path: 'product_list',
+    canActivate: [AuthGuard],
+    component: ProductListComponent,
+  },
+  { path: 'user_list', canActivate: [AuthGuard], component: UserListComponent },
+  { path: 'admin', canActivate: [AuthGuard], component: AdminComponent },
+  { path: 'cartitem', canActivate: [AuthGuard], component: CartitemComponent },
+  { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent },
+  {
+    path: 'history',
+    canActivate: [AuthGuard],
+    component: HistoryCartComponent,
+  },
+  {
+    path: 'detail/:orderId',
+    canActivate: [AuthGuard],
+    component: DetailComponent,
+  },
   {
     path: 'admin',
-    component: AdminComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./Components/AdminBoard/admin/admin.module').then(
-            (m) => m.AdminModule
-          ),
-      },
-    ],
+    loadChildren: () =>
+      import('./Components/AdminBoard/admin/admin.module').then(
+        (m) => m.AdminModule
+      ),
   },
-  { path: 'detail', component: DetailComponent },
 ];
 
 @NgModule({

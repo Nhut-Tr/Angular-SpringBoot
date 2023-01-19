@@ -16,9 +16,7 @@
     rgba(253, 160, 133, 1)
   );
 }
-.pro-file {
-  margin-top: 10px;
-}
+
 .input-info {
   border: none;
   background-color: transparent;
@@ -28,4 +26,8 @@
   color: lightgoldenrodyellow;
 }
 .input-info:focus {
+}
+.edit {
+  cursor: pointer;
+  font-size: 20px;
 }

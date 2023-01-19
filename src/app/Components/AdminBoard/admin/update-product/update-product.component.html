@@ -1,24 +1,178 @@
 <div class="container">
-    <div class="card p-2">
-        <h5> Update Product</h5>
-        <form action="" style="font-size:12px;" (ngSubmit)="onSubmit()">
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product name" name="name" [(ngModel)]="product.name">
-                <label for="name"> Name Product: </label>
-            </div>
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product price" name="price" [(ngModel)]="product.price">
-                <label for="price"> Price: </label>
-            </div>
-            <div class="form-floating mt-2 mb-2">
-                <input type="text" class="form-control" placeholder="Enter product description" name="description" [(ngModel)]="product.description">
-                <label for="description"> Description: </label>
-            </div>
-                <label for="formFileMultiple" class="form-label">Upload Image:</label>
-                <input class="form-control" type="input" id="formFileMultiple" name="image" [(ngModel)]="product.img" />
-                <br>  
-            <button type="submit" class="btn btn-info mt-2"> Update Product </button>
-            <button type="submit" class="btn btn-info mt-2 button-clear"> Clear </button>
-        </form>
-    </div>
+  <div class="card p-2">
+    <h5>Update Product</h5>
+    <form
+      action=""
+      style="font-size: 12px"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="updateProductForm"
+    >
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product name"
+          name="productName"
+          [(ngModel)]="product.name"
+          formControlName="productName"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            updateProductForm.controls['productName'].dirty &&
+            updateProductForm.controls['productName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['productName'].errors?.['required']"
+          >
+            *Name is invalid.
+          </div>
+        </div>
+        <label for="name"> Name Product: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product price"
+          name="price"
+          [(ngModel)]="product.price"
+          formControlName="price"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            updateProductForm.controls['price'].dirty &&
+            updateProductForm.controls['price'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['price'].errors?.['min']"
+          >
+            *Price must be < 0.
+          </div>
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['price'].errors?.['pattern']"
+          >
+            *Price must be only number
+          </div>
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateProductForm.controls['price'].dirty &&
+            updateProductForm.controls['price'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['price'].errors?.['required']"
+          >
+            *Price is invalid.
+          </div>
+        </div>
+        <label for="price"> Price: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product description"
+          name="description"
+          [(ngModel)]="product.description"
+          formControlName="description"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            updateProductForm.controls['description'].dirty &&
+            updateProductForm.controls['description'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['description'].errors?.['required']"
+          >
+            *Description is invalid.
+          </div>
+        </div>
+        <label for="description"> Description: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product quantity"
+          name="quantity"
+          [(ngModel)]="product.quantity"
+          formControlName="quantity"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            updateProductForm.controls['quantity'].dirty &&
+            updateProductForm.controls['quantity'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['quantity'].errors?.['required']"
+          >
+            *Quantity is invalid.
+          </div>
+          <div
+            class="text-danger title-error"
+            *ngIf="updateProductForm.controls['quantity'].errors?.['pattern']"
+          >
+            *Quantity must be only number.
+          </div>
+        </div>
+        <label for="description"> Quantity: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <select
+          [(ngModel)]="selectStatus"
+          formControlName="selectStatus"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option *ngFor="let list of listStatus" [ngValue]="list">
+            <span style="background-color: red !important">{{
+              list.name
+            }}</span>
+          </option>
+        </select>
+        <label for="price"> Status: </label>
+      </div>
+      <label for="formFileMultiple" class="form-label">Upload Image:</label>
+      <input
+        class="form-control"
+        type="input"
+        id="formFileMultiple"
+        name="image"
+        formControlName="img"
+        [(ngModel)]="product.img"
+      />
+
+      <br />
+      <button
+        [disabled]="updateProductForm.invalid"
+        type="submit"
+        class="btn btn-success mt-2"
+      >
+        Submit
+      </button>
+      <button
+        type="submit"
+        class="btn btn-success mt-2 button-clear"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </form>
+  </div>
 </div>

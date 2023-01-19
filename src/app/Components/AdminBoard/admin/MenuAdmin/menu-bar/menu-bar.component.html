@@ -2,6 +2,18 @@
   <div class="dashboard-nav">
     <nav class="dashboard-nav-list">
       <a
+        routerLink="/admin/chart"
+        routerLinkActive="active"
+        class="dashboard-nav-item"
+        ><i class="fa fa-tachometer"></i>Dash Board
+      </a>
+      <a
+        routerLink="/admin/add-user"
+        routerLinkActive="active"
+        class="dashboard-nav-item"
+        ><i class="fa fa-user-plus"></i>Add User
+      </a>
+      <a
         routerLink="/admin/crud-product"
         routerLinkActive="active"
         class="dashboard-nav-item"
@@ -19,32 +31,24 @@
         class="dashboard-nav-item"
         ><i class="fa fa-list-alt"></i> User List
       </a>
-      <a href="#" class="dashboard-nav-item"
+      <a
+        routerLink="/profile"
+        class="dashboard-nav-item"
+        routerLinkActive="active"
         ><i class="fa fa-user"></i> Profile
       </a>
-      <div class="nav-item-divider"></div>
+      <a
+        routerLink="/changepassword"
+        routerLinkActive="active"
+        class="dashboard-nav-item"
+        ><i class="fa fa-lock"></i> Change Password
+      </a>
+      <a
+        routerLink="/admin/order-manager"
+        routerLinkActive="active"
+        class="dashboard-nav-item"
+        ><i class="fa fa-tasks"></i> Order Manager
+      </a>
     </nav>
   </div>
 </div>
-
-<script>
-  //     const mobileScreen = window.matchMedia("(max-width: 990px )");
-  // $(document).ready(function () {
-  //     $(".dashboard-nav-dropdown-toggle").click(function () {
-  //         $(this).closest(".dashboard-nav-dropdown")
-  //             .toggleClass("show")
-  //             .find(".dashboard-nav-dropdown")
-  //             .removeClass("show");
-  //         $(this).parent()
-  //             .siblings()
-  //             .removeClass("show");
-  //     });
-  //     $(".menu-toggle").click(function () {
-  //         if (mobileScreen.matches) {
-  //             $(".dashboard-nav").toggleClass("mobile-show");
-  //         } else {
-  //             $(".dashboard").toggleClass("dashboard-compact");
-  //         }
-  //     });
-  // });
-</script>

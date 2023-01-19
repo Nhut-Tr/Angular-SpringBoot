@@ -1,5 +1,8 @@
-button{
-    margin: 10px;
-    width: 80px;
-    color: white;
+button {
+  margin: 10px;
+  width: 80px;
+  color: white;
+}
+.btn-success {
+  width: 100px;
 }

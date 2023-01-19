@@ -1,15 +1,35 @@
 <div class="container">
   <div class="card p-2">
-    <h5>Update User</h5>
-    <form action="" style="font-size: 12px" (ngSubmit)="onSubmit()">
+    <h2 class="text-center">Update User</h2>
+    <form
+      action=""
+      style="font-size: 12px"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="updateUserForm"
+    >
       <div class="form-floating mt-2 mb-2">
         <input
           type="text"
           class="form-control"
           placeholder="Enter product name"
-          name="name"
+          name="userName"
           [(ngModel)]="user.username"
+          formControlName="userName"
         />
+        <div
+          class="text-danger"
+          *ngIf="
+            updateUserForm.controls['userName'].dirty &&
+            updateUserForm.controls['userName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateUserForm.controls['userName'].errors?.['required']"
+          >
+            *User name is invalid.
+          </div>
+        </div>
         <label for="name"> Username: </label>
       </div>
       <div class="form-floating mt-2 mb-2">
@@ -17,34 +37,78 @@
           type="text"
           class="form-control"
           placeholder="Enter product price"
-          name="price"
-          [(ngModel)]="user.email"
+          name="fullName"
+          [(ngModel)]="user.fullName"
+          formControlName="fullName"
         />
-        <label for="price"> Email: </label>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateUserForm.controls['fullName'].dirty &&
+            updateUserForm.controls['fullName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="updateUserForm.controls['fullName'].errors?.['required']"
+          >
+            *Full name is invalid.
+          </div>
+        </div>
+        <label for="price"> Full Name: </label>
       </div>
       <div class="form-floating mt-2 mb-2">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter image"
-          name="image"
-        />
-        <label for="description"> Image: </label>
+        <select
+          name="selectStatus"
+          [(ngModel)]="selectStatus"
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="selectStatus"
+        >
+          <option *ngFor="let list of listStatus" [ngValue]="list">
+            <span style="background-color: red !important">{{
+              list.name
+            }}</span>
+          </option>
+        </select>
+        <label for="price"> Status: </label>
       </div>
-      <label for="formFileMultiple" class="form-label">Role: </label>
+      <label for="formFileMultiple" class="form-label" style="padding: 5px"
+        >Role:
+      </label>
       <select
-        (change)="onChangeRole($event)"
+        name="selectRole"
+        [(ngModel)]="selectRole"
         class="form-select"
         aria-label="Default select example"
+        formControlName="selectRole"
       >
-        <option *ngFor="let role of roles" [ngValue]="role">
-          {{ role.name }}
+        <option
+          *ngFor="let role of roles"
+          [ngValue]="role"
+          [hidden]="
+            currentUser.roles &&
+            currentUser.roles[0] !== 'ROLE_ADMIN' &&
+            role.name === 'ROLE_ADMIN'
+          "
+        >
+          <span style="background-color: red !important">{{ role.name }}</span>
         </option>
       </select>
       <br />
-      <button type="submit" class="btn btn-info mt-2">Submit</button>
-      <button type="submit" class="btn btn-info mt-2 button-clear">
-        Clear
+      <button
+        type="submit"
+        [disabled]="updateUserForm.invalid"
+        class="btn btn-success mt-2"
+      >
+        Submit
+      </button>
+      <button
+        type="submit"
+        class="btn btn-success mt-2 button-clear"
+        (click)="back()"
+      >
+        Back
       </button>
     </form>
   </div>

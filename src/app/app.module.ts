@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CategoryComponent } from './Components/Block/header/categoty/category/category.component';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Components/Block/header/header.component';
@@ -30,7 +30,8 @@ import { ForgotpasswordComponent } from './Components/Users/forgotpassword/forgo
 import { ResetpasswordComponent } from './Components/Users/resetpassword/resetpassword/resetpassword.component';
 import { ChangepasswordComponent } from './Components/Users/changepassword/changepassword/changepassword.component';
 import { ProfileComponent } from './Components/Users/profile/profile/profile.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,20 +53,21 @@ import { ProfileComponent } from './Components/Users/profile/profile/profile.com
     ResetpasswordComponent,
     ChangepasswordComponent,
     ProfileComponent,
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgToastModule,
     NgbModule,
     NgxPayPalModule,
     CategoriesModule,
-    NgConfirmModule
+    NgConfirmModule,
+    HttpClientModule,
   ],
-  providers: [authInterceptorProviders],
-  bootstrap: [AppComponent]
+  providers: [authInterceptorProviders, DatePipe],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

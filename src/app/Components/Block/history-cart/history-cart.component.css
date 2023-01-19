@@ -1,4 +1,4 @@
-.amount{
+/* .amount{
    width: 50px;
 }
 .fa.fa-cc-paypal{
@@ -11,7 +11,7 @@
    min-height: auto;
    margin-top: 30px;
    border-radius: 10px;
- 
+
 }
 .search{
    display: inline-flex;
@@ -19,12 +19,50 @@
    margin-bottom: 30px;
 }
 .form-label{
- 
+
    font-weight: bold;
 }
 h3{
    margin-top: 10px;
 }
 .table.table-bordered{
-   
+
+} */
+.tb-history {
+  text-align: center;
+  font-weight: bold;
+}
+tr a:hover {
+  color: red;
+
+  text-decoration: none;
+}
+.tr-history {
+}
+.fix-paginator {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+.option-size {
+  width: 70px;
+  height: 30px;
+  background-color: darkgray;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+.status {
+  color: red;
+  font-weight: bold;
+}
+.css-select {
+  width: 50px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  font-size: 13px;
+}
+.page-button {
+  font-size: 13px;
 }

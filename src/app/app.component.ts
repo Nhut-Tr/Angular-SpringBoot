@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartServiceService } from './service/cart-service.service';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { TokenStorageService } from './service/token-storage.service';
 
 @Component({
@@ -8,9 +9,9 @@ import { TokenStorageService } from './service/token-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   private roles: string[] = [];
-  isLoggedIn = false;
+  currentUserSubscription!: Subscription;
   showUserBoard = false;
   showAdminBoard = false;
   public isUserLoggedIn: boolean = false;
@@ -19,32 +20,42 @@ export class AppComponent {
     private cartService: CartServiceService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-      this.showUserBoard = this.roles.includes('ROLE_USER');
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      if (this.showAdminBoard == true) {
-        this.router.navigate(['/admin/user-list']);
-      }
-      if (this.showUserBoard == true) {
-      }
+  ngOnDestroy(): void {
+    if (this.currentUserSubscription) {
+      this.currentUserSubscription.unsubscribe();
     }
-    this.cartService
-      .getCartByUserId(this.tokenStorageService.getUser().id)
-      .subscribe((datas) => {
-        this.cartService.cartServiceItem.next(datas);
-        console.log(datas);
-      });
+  }
+  ngOnInit(): void {
+    this.getUserLogged();
+    if (this.tokenStorageService.getUser()) {
+    }
   }
   logout(): void {
     this.tokenStorageService.signOut();
-    this.isLoggedIn = false;
-    this.showUserBoard = false;
-    this.showAdminBoard = false;
+  }
+
+  getUserCurrentChat() {
+    return this.tokenStorageService.getUser().fullName;
+  }
+
+  getUserLogged() {
+    this.currentUserSubscription =
+      this.tokenStorageService.currentUser.subscribe((data) => {
+        console.log(data);
+        if (data) {
+          this.roles = data.roles;
+          this.showUserBoard = this.roles.includes('ROLE_USER');
+          this.showAdminBoard =
+            this.roles.includes('ROLE_ADMIN') ||
+            this.roles.includes('ROLE_MODERATOR');
+          this.cartService.getCartByUserId(data.id).subscribe((datas) => {
+            this.cartService.cartServiceItem.next(datas);
+            console.log(datas);
+          });
+        } else {
+          this.showUserBoard = false;
+          this.showAdminBoard = false;
+        }
+      });
   }
 }

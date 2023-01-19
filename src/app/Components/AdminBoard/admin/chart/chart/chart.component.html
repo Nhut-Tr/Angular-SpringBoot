@@ -1,0 +1,79 @@
+<div class="row" id="content" #content>
+  <div class="btn btn-primary row g-0">
+    <div class="date">
+      <input type="text" value="{{ createAt | date }} " [disabled]="true" />
+      <span style="margin-right: 70px">Dash Board </span>
+      <button class="export-button" (click)="savePDF()">Export file PDF</button>
+      <button
+        style="margin-right: 10px"
+        class="export-button"
+        (click)="saveExcel()"
+      >
+        Export file Excel
+      </button>
+    </div>
+  </div>
+  <div class="data col-lg-4">
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-success">Total Users</div>
+      <div class="card-body text-success">
+        <span class="badge bg-fix">{{ totalsUser }} Users</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div
+        class="card-header bg-transparent text-warning"
+        [routerLink]="['/admin/user-list']"
+        [queryParams]="{ enabled: true }"
+      >
+        Users Activated
+      </div>
+      <div class="card-body text-warning">
+        <span class="badge bg-fix">{{ totalUsersActivated }} Users</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-blue">Users Deactivated</div>
+      <div class="card-body text-primary">
+        <span class="badge bg-fix">{{ totalUsersDeactivated }} Users</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-info">Total Orders</div>
+      <div class="card-body text-info">
+        <span class="badge bg-fix">{{ totalsOrder }} Orders</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-danger">Total Products</div>
+      <div class="card-body text-danger">
+        <span class="badge bg-fix">{{ totalProduct }} Products</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-dark">
+        Total Products Activated
+      </div>
+      <div class="card-body text-dark">
+        <span class="badge bg-fix">{{ totalProductActivated }} Products</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-dark">
+        Total Products Deactivated
+      </div>
+      <div class="card-body text-blue">
+        <span class="badge bg-fix">{{ totalProductDeactivated }} Products</span>
+      </div>
+    </div>
+    <div class="card mb-3 fix-cart" style="max-width: 30rem">
+      <div class="card-header bg-transparent text-secondary">Total Sales</div>
+      <div class="card-body text-secondary">
+        <span class="badge bg-fix">${{ totalSale }}</span>
+      </div>
+    </div>
+
+    <div class="btn btn-primary">Top Sales</div>
+  </div>
+  <canvas id="piechart"></canvas>
+</div>

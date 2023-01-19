@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="card p-2">
+    <h5>Update Order</h5>
+    <form action="" style="font-size: 12px" (ngSubmit)="updateOrder()">
+      <!-- (ngSubmit)="onSubmit()"> -->
+      <div class="form-floating mt-2 mb-2">
+        <input
+          [disabled]="true"
+          type="text"
+          class="form-control"
+          placeholder="Enter product name"
+          name="name"
+          [(ngModel)]="order.id"
+        />
+        <label for="name"> Order Id: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <select
+          name="selectStatus"
+          [(ngModel)]="selectStatus"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option *ngFor="let list of listStatus" [ngValue]="list">
+            <span style="background-color: red !important">{{
+              list.name
+            }}</span>
+          </option>
+        </select>
+        <label for="price"> Status: </label>
+      </div>
+      <br />
+      <div class="clearfixed">
+        <button type="submit" class="btn btn-success mt-2">Submit</button>
+        <button
+          type="submit"
+          class="btn btn-success mt-2 button-clear"
+          (click)="back()"
+        >
+          Back
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

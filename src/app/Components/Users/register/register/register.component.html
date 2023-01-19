@@ -6,6 +6,7 @@
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
       novalidate
+      [formGroup]="registerForm"
     >
       <h1 style="text-align: center">Sign Up Form</h1>
       <div class="form-group">
@@ -17,12 +18,22 @@
           [(ngModel)]="form.fullName"
           required
           fullName
-          #fullName="ngModel"
           placeholder="Enter your name ..."
+          formControlName="fullName"
         />
-        <div class="alert-danger" *ngIf="fullName.errors && f.submitted">
-          <div *ngIf="email.errors">Name is required</div>
-          <div *ngIf="fullName.errors">Name must be at least 3 characters</div>
+        <div
+          class="text-danger"
+          *ngIf="
+            registerForm.controls['fullName'].dirty &&
+            registerForm.controls['fullName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['fullName'].errors?.['required']"
+          >
+            *Full name is invalid.
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -35,16 +46,21 @@
           required
           minlength="3"
           maxlength="20"
-          #username="ngModel"
           placeholder="Enter your username"
+          formControlName="username"
         />
-        <div class="alert-danger" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors">Username is required</div>
-          <div *ngIf="username.errors">
-            Username must be at least 3 characters
-          </div>
-          <div *ngIf="username.errors">
-            Username must be at most 20 characters
+        <div
+          class="text-danger"
+          *ngIf="
+            registerForm.controls['username'].dirty &&
+            registerForm.controls['username'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['username'].errors?.['required']"
+          >
+            *User name is invalid.
           </div>
         </div>
       </div>
@@ -57,12 +73,28 @@
           [(ngModel)]="form.email"
           required
           email
-          #email="ngModel"
+          formControlName="email"
           placeholder="Enter your email ..."
         />
-        <div class="alert-danger" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors">Email is required</div>
-          <div *ngIf="email.errors">Email must be a valid email address</div>
+        <div
+          class="text-danger"
+          *ngIf="
+            registerForm.controls['email'].dirty &&
+            registerForm.controls['email'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['email'].errors?.['email']"
+          >
+            *Incorrect email format.
+          </div>
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['email'].errors?.['required']"
+          >
+            *Email is required.
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -74,25 +106,71 @@
           [(ngModel)]="form.password"
           required
           minlength="6"
-          #password="ngModel"
+          formControlName="password"
           placeholder="Enter your password ..."
         />
-        <div class="alert-danger" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors">Password is required</div>
-          <div *ngIf="password.errors">
-            Password must be at least 6 characters
+        <div
+          class="text-danger"
+          *ngIf="
+            registerForm.controls['password'].dirty &&
+            registerForm.controls['password'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['password'].errors?.['required']"
+          >
+            *Password is required.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign up</button>
+        <label for="password">Confirm Password:</label>
+        <input
+          type="password"
+          class="form-control"
+          name="confirmPassword"
+          required
+          formControlName="confirmPassword"
+          minlength="6"
+          placeholder="Enter your password ..."
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            registerForm.controls['confirmPassword'].dirty &&
+            registerForm.controls['confirmPassword'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['confirmPassword'].errors?.['confirmPassword']"
+          >
+            *Passwords did not match.
+          </div>
+          <div
+            class="text-danger title-error"
+            *ngIf="registerForm.controls['confirmPassword'].errors?.['required']"
+          >
+            *Passwords did not match.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button
+          class="btn btn-primary btn-block"
+          [disabled]="registerForm.invalid || isLoading"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            *ngIf="isLoading"
+          ></span>
+          Sign up
+        </button>
         <button class="btn btn-primary btn-block fixButton" routerLink="/login">
           Back
         </button>
-      </div>
-
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
       </div>
     </form>
   </div>

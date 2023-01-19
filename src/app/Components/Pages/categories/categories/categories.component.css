@@ -1,14 +1,41 @@
-
-
-.pagination{
-    padding-left: 400px!important;
-    font-weight: bold;
+.pagination {
+  padding-left: 400px !important;
+  font-weight: bold;
 }
-.page-link:hover{
-    background-color:#007ACC ;
-    color: white;
+.page-link:hover {
+  background-color: #007acc;
+  color: white;
 }
-.page-pagi{
-    margin-left: 320px;
-    display: inline-block;
+.page-pagi {
+  margin-left: 320px;
+  display: inline-block;
+}
+.radio {
+  display: flex;
+}
+.form-check {
+  width: 70px;
+  margin: 15px 85px;
+}
+.label-filter {
+  font-size: 17px;
+  font-weight: bold;
+  color: red;
+  padding: 15px 5px;
+}
+.text-center {
+  font-size: 30px;
+  font-weight: bold;
+}
+.btn-warning {
+  background-color: #f18822;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+.btn-warning:hover {
+  background-color: white;
+  color: #f18822;
+  border-radius: 3px;
+  border: 1px solid #f18822;
 }

@@ -16,7 +16,11 @@
   </div>
 
   <div class="new">
-    <h3 class="text-new text-bg-dark p-3" routerLink="/product">
+    <h3
+      class="text-new text-bg-dark p-3"
+      routerLink="/product"
+      (click)="checkAuth()"
+    >
       Some New Product Launches
     </h3>
   </div>
@@ -35,14 +39,14 @@
           alt="..."
         />
       </div>
-      <div class="carousel-item active">
+      <div class="carousel-item">
         <img
           src="https://images.mobileshop.eu/1666343630/banner/42614Pro%20(4).jpg"
           class="d-block w-100"
           alt="..."
         />
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item active">
         <img
           src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/sabikhit/Samung/S22-Ultra-Gamex/Revised-gamex/D39447767_WLD_SamsungGalaxyS22Ultra_Quiz_BAU_1242x450_1.jpg"
           class="d-block w-100"
@@ -53,12 +57,12 @@
   </div>
   <div class="big-sale">
     <h2 routerLink="" class="text-bg-dark p-3">Big Sale</h2>
-    <div class="owl-item active">
+    <div class="owl-item active row">
       <div
-        class="item"
+        class="item col-6 col-sm-6 col-md-3 py-4"
         data-id="267212"
         data-pos="2"
-        *ngFor="let pro of product | slice: 0:4"
+        *ngFor="let pro of product | slice : 0 : 8"
       >
         <div class="item-label">
           <span class="fa fa-fire"> Sale</span>
@@ -68,7 +72,7 @@
             data-src="{{ pro.img }}"
             class="lazyloaded"
             alt=""
-            width="240"
+            width="250"
             height="225"
             src=""
           />
@@ -82,11 +86,17 @@
               alt="WORLD CUP SALE TO"
               data-src="https://cdn.tgdd.vn/2022/11/content/WORLD+CUP+SALE+TO-51x51.png"
               src="https://cdn.tgdd.vn/2022/11/content/WORLD+CUP+SALE+TO-51x51.png"
-            /><span>BIG SALE WORLD CUP</span>
+            /><span style="font-weight: bold">BIG SALE WORLD CUP</span>
           </p>
           <h5 class="name-product">{{ pro.name }}</h5>
           <strong class="price">Only: ${{ pro.price }} </strong>
         </div>
+        <button
+          class="btn btn-success button-home"
+          (click)="updateCart(pro.id)"
+        >
+          Buy now
+        </button>
         <!-- </a> -->
       </div>
     </div>
@@ -94,31 +104,75 @@
   <div class="new">
     <h3 class="text-new text-bg-dark p-3" routerLink="/product">Best Sale</h3>
     <div class="block-top-home__right-banner">
-      <div class="right-banner">
-        <img
-          src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/Fold3.png"
-          alt="GALAXY FOLD3 Giá rẻ bất ngờ"
-          loading="lazy"
-          class="right-banner__img"
-        />
-        <img
-          src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/iphone-14-right.png"
-          alt="IPHONE 14<br>MỞ BÁN GIÁ TỐT"
-          loading="lazy"
-          class="right-banner__img"
-        />
+      <div
+        class="owl-stage"
+        style="
+          transform: translate3d(0px, 0px, 0px);
+          transition: all 0s ease 0s;
+          width: 100%;
+          display: flex;
+        "
+      >
+        <div class="owl-item active">
+          <a
+            aria-label="slide"
+            data-cate="0"
+            data-place="1550"
+            onclick="jQuery.ajax({ url: '/bannertracking?bid=65252&amp;r='+ (new Date).getTime(), async: true, cache: false });"
+            ><img
+              width="390"
+              height="180"
+              loading="lazy"
+              class="owl-lazy lazyloaded"
+              data-src="//cdn.tgdd.vn/2022/11/banner/samsung-390-210--1--390x210.png"
+              alt="SS"
+              src="//cdn.tgdd.vn/2022/11/banner/samsung-390-210--1--390x210.png"
+          /></a>
+        </div>
+        <div class="owl-item active" style="margin: 0 5px">
+          <a
+            aria-label="slide"
+            data-cate="0"
+            data-place="1550"
+            onclick="jQuery.ajax({ url: '/bannertracking?bid=65350&amp;r='+ (new Date).getTime(), async: true, cache: false });"
+            ><img
+              width="390"
+              height="180"
+              loading="lazy"
+              class="owl-lazy lazyloaded"
+              data-src="//cdn.tgdd.vn/2022/11/banner/appleDT-390x210-1.png"
+              alt="Chuyên trang thương hiệu Apple"
+              src="//cdn.tgdd.vn/2022/11/banner/appleDT-390x210-1.png"
+          /></a>
+        </div>
+        <div class="owl-item active">
+          <a
+            aria-label="slide"
+            data-cate="0"
+            data-place="1550"
+            onclick="jQuery.ajax({ url: '/bannertracking?bid=66347&amp;r='+ (new Date).getTime(), async: true, cache: false });"
+            ><img
+              width="390"
+              height="180"
+              loading="lazy"
+              class="owl-lazy lazyloaded"
+              data-src="//cdn.tgdd.vn/2022/11/banner/MAC-390x210.png"
+              alt="Chuyên trang thương hiệu Mac"
+              src="//cdn.tgdd.vn/2022/11/banner/MAC-390x210.png"
+          /></a>
+        </div>
       </div>
     </div>
-    <div class="owl-item active">
+    <div class="owl-item active row">
       <div
-        class="item2"
+        class="item2 col-6 col-sm-6 col-md-3"
         data-id="267212"
         data-pos="2"
-        *ngFor="let chk of checkout | slice: 0:4"
+        *ngFor="let bs of bestSale | slice : 0 : 4"
       >
         <div class="item-img">
           <img
-            data-src="{{ chk.products?.img }}"
+            data-src="{{ bs.img }}"
             class="lazyloaded"
             alt=""
             width="240"
@@ -127,10 +181,13 @@
           />
         </div>
         <div class="product2">
-          <h5>{{ chk.products?.name }}</h5>
-          <strong class="price">Only: ${{ chk.products?.price }} </strong><br />
-          <strong>Sold: {{ chk.quantity }}</strong>
+          <h5>{{ bs.name }}</h5>
+          <strong class="price">Only: ${{ bs.price }} </strong><br />
+          <strong>Sold: {{ bs.sold }}</strong>
         </div>
+        <button class="btn btn-success btn-bot" (click)="updateCart(bs.id)">
+          Buy now
+        </button>
         <!-- </a> -->
       </div>
     </div>

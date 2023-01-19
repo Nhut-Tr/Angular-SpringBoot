@@ -1,32 +1,51 @@
 <div class="container">
-  <div class="search">
-  <div class="input-group">
-    <div class="form-outline">
-      <label class="form-label" for="form1">Search: </label>
-      <input type="search" id="form1" class="form-control" />
-    </div>
-  </div>
-  <button class="btn btn-primary fix-search">
-    <i class="fa fa-search " aria-hidden="true"></i>
-  </button>
-</div>
-<h3 class="title">My Purchase</h3>
-  <table class="table table-bordered">
+  <br />
+  <h3 class="title">My Purchase</h3>
+  <table class="table table-bordered tb-history">
     <thead>
       <tr>
-        <th scope="col">Product</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Amount</th>
+        <th scope="col">ID</th>
+        <th scope="col">Create At</th>
+        <th scope="col">STATUS</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let chk of checkout">
-        <th scope="row">{{ chk.products?.name }}</th>
-        <td>${{ chk.products?.price }}</td>
-        <td>{{ chk.quantity }}</td>
-        <td>{{ chk.products?.price! * chk.quantity! }}</td>
+      <tr
+        *ngFor="
+          let or of orders
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count
+                }
+        "
+        class="tr-history"
+      >
+        <th>
+          <a [routerLink]="['/detail/' + or.id]">HD: {{ or.id }}</a>
+        </th>
+        <td>{{ or.createdAt | date : "MM/dd/yyyy" }}</td>
+        <td class="status">{{ displayStatus(or.status!) }}</td>
       </tr>
     </tbody>
   </table>
+  <div class="fix-paginator">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+      class="page-button"
+    >
+    </pagination-controls>
+    <select
+      class="css-select"
+      aria-label="Default select example"
+      (change)="onTableSizeChange($event)"
+    >
+      <option *ngFor="let size of listSize" [ngValue]="size">
+        <span>{{ size }}</span>
+      </option>
+    </select>
+  </div>
 </div>

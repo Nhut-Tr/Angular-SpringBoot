@@ -23,17 +23,62 @@ export class UserService {
     return this.http.get(baseURL + 'admin', { responseType: 'text' });
   }
 
-  getListUsers(): Observable<Users[]> {
-    return this.http.get<Users[]>(`${baseURL + 'users'}`);
+  getListUser(page: number, size: number): Observable<Users[]> {
+    return this.http.get<Users[]>(
+      `${baseURL + 'users'}?page=${page}&size=${size}`
+    );
   }
 
   getUserById(id: any): Observable<Users> {
     return this.http.get(`${baseURL + 'user'}/${id}`);
   }
 
-  findByUserName(username: any): Observable<Users[]> {
+  findByUserName(
+    userName: any,
+    page: number,
+    size: number
+  ): Observable<Users[]> {
     return this.http.get<Users[]>(
-      `${baseURL + 'search-user-name'}?userName=${username}`
+      `${
+        baseURL + 'search-user-name'
+      }?userName=${userName}&page=${page}&size=${size}`
+    );
+  }
+  findUserByEmail(email: any, page: number, size: number): Observable<Users[]> {
+    return this.http.get<Users[]>(
+      `${baseURL + 'search-email'}?email=${email}&page=${page}&size=${size}`
+    );
+  }
+
+  findUserByRole(id: any, page: number, size: number): Observable<Users[]> {
+    return this.http.get<Users[]>(
+      `${baseURL + 'search-role'}?id=${id}&page=${page}&size=${size}`
+    );
+  }
+
+  findUserByStatus(
+    status: any,
+    page: number,
+    size: number
+  ): Observable<Users[]> {
+    return this.http.get<Users[]>(
+      `${
+        baseURL + 'find-user-by-status'
+      }?enabled=${status}&page=${page}&size=${size}`
+    );
+  }
+  findUserAllField(
+    userName: any,
+    email: any,
+    roleId: any,
+    status: any,
+    page: number,
+    size: number
+  ): Observable<Users[]> {
+    return this.http.get<Users[]>(
+      `${
+        baseURL + 'search-all'
+      }?userName=${userName}&email=${email}&roleId=${roleId}&enabled=${status}&page=${page}&size=${size}`
     );
   }
 
@@ -47,14 +92,24 @@ export class UserService {
   update(id: any, data: any): Observable<any> {
     return this.http.put(`${baseURL + 'admin/update-user'}/${id}`, data);
   }
-
+  addUsers(user: Users): Observable<Object> {
+    return this.http.post(`${baseURL + 'admin/add-user'}`, user);
+  }
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseURL + 'user'}/${id}`);
   }
-  updateProfile(id: any, username: string, fullName: string): Observable<any> {
-    return this.http.put(`${baseURL + 'update-user'}/${id}`, {
-      username,
-      fullName,
-    });
+  updateProfile(formData: FormData): Observable<any> {
+    return this.http.put(`${baseURL + 'update-user'}`, formData);
+  }
+  setStatusUser(id: any, enable: boolean): Observable<any> {
+    return this.http.put(`${baseURL + 'user-status'}/${id}`, enable);
+  }
+
+  getListUsersDeactivated(): Observable<Users[]> {
+    return this.http.get<Users[]>(`${baseURL + 'user-list-deactivated'}`);
+  }
+
+  getListUsersActivated(): Observable<Users[]> {
+    return this.http.get<Users[]>(`${baseURL + 'user-list-activated'}`);
   }
 }

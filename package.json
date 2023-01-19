@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-slider/ngx-slider": "^2.0.4",
     "@angular/animations": "^14.2.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
@@ -23,8 +24,10 @@
     "angular-popper": "^2.0.1",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.10.2",
+    "chart.js": "^4.1.1",
     "creditcardpayments": "^1.0.3",
     "jquery": "^3.6.1",
+    "jspdf": "^2.5.1",
     "jw-angular-pagination": "^1.2.0",
     "ng-angular-popup": "^0.2.0",
     "ng-confirm-box": "0.0.6",

@@ -1,0 +1,237 @@
+<!-- <div class="container">
+  <div class="card p-2">
+    <h5 style="text-align: center">Add User</h5>
+    <form action="" style="font-size: 12px" (ngSubmit)="onSubmit()">
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter product name"
+          name="username"
+          [(ngModel)]="user.username"
+          #username="ngModel"
+        />
+        <label for="name"> Username: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter your name..."
+          name="fullName"
+          [(ngModel)]="user.fullName"
+        />
+
+        <label for="price"> Full Name: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter image"
+          name="password"
+          [(ngModel)]="user.password"
+        />
+        <label for="description"> Password: </label>
+      </div>
+      <div class="form-floating mt-2 mb-2">
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Enter email..."
+          name="email"
+          [(ngModel)]="user.email"
+        />
+        <label for="name"> Email: </label>
+      </div>
+      <label
+        [hidden]="isAuth"
+        for="formFileMultiple"
+        class="form-label"
+        style="padding: 2px"
+        >Role:
+      </label>
+      <select
+        (change)="onChangeRole($event)"
+        class="form-select"
+        [hidden]="isAuth"
+      >
+        <option *ngFor="let role of roles" [ngValue]="role">
+          {{ role.name }}
+        </option>
+      </select>
+      <br />
+      <button type="submit" class="btn btn-info mt-2">Submit</button>
+      <button
+        type="submit"
+        class="btn btn-info mt-2 button-clear"
+        (click)="clear()"
+      >
+        Clear
+      </button>
+    </form>
+  </div>
+</div> -->
+<div class="container">
+  <div class="card p-2">
+    <h5>Insert New User</h5>
+    <form action="" style="font-size: 12px" [formGroup]="addUserForm">
+      <div class="input-group">
+        <span class="input-group-text">User Name*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter user name in here..."
+          name="username"
+          [ngClass]="{
+            'is-invalid':
+            addUserForm.controls['username'].dirty && addUserForm.controls['username'].errors?.['required']
+          }"
+          formControlName="username"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addUserForm.controls['username'].dirty &&
+            addUserForm.controls['username'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addUserForm.controls['username'].errors?.['required']"
+          >
+            *User name is required.
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Password*</span>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter the password in here..."
+          name="password"
+          [ngClass]="{
+            'is-invalid':
+            addUserForm.controls['password'].dirty && addUserForm.controls['password'].errors?.['required']
+          }"
+          formControlName="password"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addUserForm.controls['password'].dirty &&
+            addUserForm.controls['password'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addUserForm.controls['password'].errors?.['minlength']"
+          >
+            *The password must be at least 8 characters long.
+          </div>
+          <div
+            class="text-danger title-error"
+            *ngIf="addUserForm.controls['password'].errors?.['maxlength']"
+          >
+            *Password must not exceed 20 characters.
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Full Name*</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter full name in here..."
+          name="fullName"
+          [ngClass]="{
+            'is-invalid':
+            addUserForm.controls['fullName'].dirty && addUserForm.controls['fullName'].errors?.['required']
+          }"
+          formControlName="fullName"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addUserForm.controls['fullName'].dirty &&
+            addUserForm.controls['fullName'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addUserForm.controls['fullName'].errors?.['required']"
+          >
+            *Full name is required
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Email*</span>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Enter email in here..."
+          name="email"
+          [ngClass]="{
+            'is-invalid':
+            addUserForm.controls['email'].dirty && addUserForm.controls['email'].errors?.['required']
+          }"
+          formControlName="email"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            addUserForm.controls['email'].dirty &&
+            addUserForm.controls['email'].errors
+          "
+        >
+          <div
+            class="text-danger title-error"
+            *ngIf="addUserForm.controls['email'].errors?.['email']"
+          >
+            *Email is invalid.
+          </div>
+        </div>
+      </div>
+      <div class="input-group" [hidden]="isAuth">
+        <span class="input-group-text">Role*</span>
+        <select (change)="onChangeRole($event)" class="form-select">
+          <option *ngFor="let role of roles" [ngValue]="role">
+            {{ role.name }}
+          </option>
+        </select>
+        <!-- <input
+          type="email"
+          class="form-control"
+          placeholder="Enter email in here..."
+          name="email"
+          [ngClass]="{
+            'is-invalid':
+            addUserForm.controls['email'].dirty && addUserForm.controls['email'].errors?.['required']
+          }"
+          formControlName="email"
+        /> -->
+      </div>
+
+      <br />
+      <div class="button-feature">
+        <button
+          type="submit"
+          class="btn btn-success button-clear"
+          (click)="clear()"
+        >
+          Clear
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success btn-add"
+          [disabled]="addUserForm.invalid"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

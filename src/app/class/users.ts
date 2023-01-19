@@ -3,6 +3,8 @@ export class Users {
   public username?: string;
   public password?: string;
   public email?: string;
-  public role?: any;
+  public roles?: any;
   public fullName?: string;
+  public avatar?: string;
+  public enabled?: boolean;
 }

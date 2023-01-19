@@ -3,17 +3,26 @@ import { NgToastService } from 'ng-angular-popup';
 import { ProductClass } from 'src/app/class/product-class.model';
 import { CartServiceService } from 'src/app/service/cart-service.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
 import { Cart } from 'src/app/class/cart';
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var paypal_sdk: any;
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CheckoutComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
@@ -22,30 +31,33 @@ export class CheckoutComponent implements OnInit {
   carts: Cart[] = [];
   product?: ProductClass;
   totalAll: number = 0;
-  userId?: number;
+  userId?: any;
   count: number = 0;
   paidFor = false;
   address: string = '';
-  name: any='';
-  phonenumber?: number;
+  description: string = '';
+  fullName: any = '';
+  phoneNumber: string = '';
+  submitted = false;
+  checkoutForm!: FormGroup;
   cartStorageChange = new Subscription();
   @ViewChild('paypal', { static: false }) paypalElement?: ElementRef;
 
   constructor(
     private router: Router,
     private cartService: CartServiceService,
-    private tokenStogareService: TokenStorageService,
+    private tokenStorageService: TokenStorageService,
     private toast: NgToastService,
     private tokenStorage: TokenStorageService,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.checkValidate();
     this.initConfig();
     this.cartTotal =
       JSON.parse(localStorage.getItem('cart_total') as any) || [];
-    console.log(this.cartTotal);
-
     this.cartStorageChange = this.cartService.cartServiceItem.subscribe(
       (data) => {
         for (let cart of data) {
@@ -54,9 +66,7 @@ export class CheckoutComponent implements OnInit {
           }
         }
         this.carts = data;
-        console.log(data);
         this.totalAll = data.reduce((totals, current) => {
-          console.log(current);
           return totals + current.products?.price * current.quantity;
         }, 0);
         this.count = data.reduce((totals, current) => {
@@ -65,46 +75,56 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
-  // invalid(){
-  //     if(this.address == ""){
-  //       this.toast.warning({
-  //         detail: 'Warning',
-  //         summary: 'Please enter your address!',
-  //         duration: 5000,
-  //       });
-  //     }else{
-  //       this.router.navigate(['/checkout']);
-  //   }
-  // }
+
+  checkValidate() {
+    this.checkoutForm = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      address: ['', Validators.required],
+      phoneNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/(84|0[3|5|7|8|9])+([0-9]{8})\b/),
+        ],
+      ],
+      description: ['', Validators.required],
+    });
+    this.submitted = true;
+    if (this.checkoutForm.invalid) {
+      return;
+    }
+    alert('success!');
+  }
+
   checkout() {
-      const request = {
-        userId: this.tokenStorage.getUser().id,
-        totalPrice: this.totalAll,
-        deliveryAddress: this.address,
-        quantity: this.count,
-      };
-      console.log(this.address);
-      this.checkoutService.checkout(request).subscribe(
-        (data) => {
-          this.toast.success({
-            detail: 'Success Message',
-            summary: 'Check out success',
-            duration: 5000,
-          });
-          this.cartService.cartServiceItem.next([]);
-          this.router.navigate(['/history']);
-
-
-        },
-        (err) => {
-          this.toast.warning({
-            detail: 'Failed Message',
-            summary: 'Check out fail, Try again later!',
-            duration: 5000,
-          });
-        }
-      );
-
+    const request = {
+      userId: this.tokenStorage.getUser().id,
+      totalPrice: this.totalAll,
+      deliveryAddress: this.checkoutForm.value.address,
+      phoneNumber: this.checkoutForm.value.phoneNumber,
+      description: this.checkoutForm.value.description,
+      quantity: this.count,
+    };
+    this.checkoutService.checkout(request).subscribe(
+      (data) => {
+        this.toast.success({
+          detail: 'Success Message',
+          summary: 'Check out success',
+          duration: 5000,
+        });
+        console.log(115);
+        this.cartService.cartServiceItem.next([]);
+        this.router.navigate(['/history']);
+      },
+      (err) => {
+        this.toast.warning({
+          detail: 'Failed Message',
+          summary: err.error.message,
+          duration: 10000,
+        });
+        console.log(125);
+      }
+    );
   }
   getAll() {
     this.cartService.getAll().subscribe((data) => {
@@ -117,7 +137,7 @@ export class CheckoutComponent implements OnInit {
     });
   }
   getCart() {
-    const id = this.tokenStogareService.getUser().id;
+    const id = this.tokenStorageService.getUser().id;
     this.cartService.getCartByUserId(id).subscribe((data) => {
       this.carts = data;
       console.log(data);
@@ -171,24 +191,23 @@ export class CheckoutComponent implements OnInit {
           data
         );
         if (data.status === 'COMPLETED') {
-          // this.router.navigate(['/history']);
-            if (this.address == '') {
-              this.toast.error({
-                detail: 'Warning',
-                summary: 'Please enter your infomation!!',
-                duration: 5000,
-              });
-            } else {
-          this.checkout();
-          this.showSuccess = true;
-          this.toast.success({
-            detail: 'Message',
-            summary: 'Successful Pay',
-            duration: 4000,
-          });
+          if (this.checkoutForm.invalid) {
+            this.toast.error({
+              detail: 'Warning',
+              summary: 'Please enter your information!!',
+              duration: 5000,
+            });
+          } else {
+            this.checkout();
+            this.showSuccess = true;
+            this.toast.success({
+              detail: 'Message',
+              summary: 'Successful Pay',
+              duration: 4000,
+            });
 
-          this.router.navigate(['/history']);
-            }
+            this.router.navigate(['/history']);
+          }
         }
       },
       onCancel: (data, actions) => {

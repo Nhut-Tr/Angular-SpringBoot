@@ -1,5 +1,4 @@
 import { TokenStorageService } from './../../../../service/token-storage.service';
-import { UserService } from './../../../../service/user.service';
 import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/service/auth.service';
 import { Component, OnInit } from '@angular/core';

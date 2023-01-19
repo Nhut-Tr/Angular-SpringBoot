@@ -32,7 +32,18 @@
               >
             </div>
 
-            <div class="card mb-3" *ngFor="let cart of carts">
+            <div
+              class="card mb-3"
+              *ngFor="
+                let cart of carts
+                  | paginate
+                    : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: carts.length
+                      }
+              "
+            >
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <div class="d-flex flex-row align-items-center">
@@ -104,7 +115,24 @@
               </div>
             </div>
           </div>
-
+          <div class="fix-paginator">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              (pageChange)="onTableDataChange($event)"
+              class="page-button"
+            >
+            </pagination-controls>
+            <select
+              class="css-select"
+              aria-label="Default select example"
+              (change)="onTableSizeChange($event)"
+            >
+              <option *ngFor="let size of listSize" [ngValue]="size">
+                <span>{{ size }}</span>
+              </option>
+            </select>
+          </div>
           <br />
           <div class="col-lg">
             <div class="">

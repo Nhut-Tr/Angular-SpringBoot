@@ -3,7 +3,11 @@
     <!-- Left -->
 
     <!-- Right -->
-    <div class="col-lg-12">
+    <form
+      class="col-lg-12"
+      [formGroup]="checkoutForm"
+      (ngSubmit)="checkValidate()"
+    >
       <div class="card position-sticky top-0">
         <div class="p-3 bg-light bg-opacity-10">
           <h6 class="title">Order Detail</h6>
@@ -35,45 +39,131 @@
         <hr />
         <br />
         <h2 style="text-align: center">Delivery Information</h2>
-        <label class="label-input"><span>Name:</span></label>
+        <label class="label-input"><span>Name*</span></label>
         <div class="input-deli">
           <input
+            [ngClass]="{
+              'is-invalid':
+              checkoutForm.controls['fullName'].dirty && checkoutForm.controls['fullName'].errors?.['required']
+            }"
+            formControlName="fullName"
+            name="fullName"
             type="text"
-            name="name"
-            [(ngModel)]="name"
             class="form-control"
             placeholder="Enter your name..."
           />
+          <div
+            class="text-danger"
+            *ngIf="
+              checkoutForm.controls['fullName'].dirty &&
+              checkoutForm.controls['fullName'].errors
+            "
+          >
+            <div
+              class="text-danger title-error"
+              *ngIf="checkoutForm.controls['fullName'].errors?.['required']"
+            >
+              *Name is required
+            </div>
+          </div>
         </div>
         <br />
-        <label class="label-input"><span>Address:</span></label>
+        <label class="label-input"><span>Address*</span></label>
         <div class="input-deli">
           <input
-            type="text"
+            [ngClass]="{
+            'is-invalid':
+            checkoutForm.controls['address'].dirty && checkoutForm.controls['address'].errors?.['required']
+          }"
+            formControlName="address"
             name="address"
-            [(ngModel)]="address"
+            type="text"
             class="form-control"
             placeholder="Enter your address..."
           />
+          <div
+            class="text-danger"
+            *ngIf="
+              checkoutForm.controls['address'].dirty &&
+              checkoutForm.controls['address'].errors
+            "
+          >
+            <div
+              class="text-danger title-error"
+              *ngIf="checkoutForm.controls['address'].errors?.['required']"
+            >
+              *Address is required
+            </div>
+          </div>
         </div>
         <br />
-        <label class="label-input"><span>Phone number:</span></label>
+        <label class="label-input"><span>Phone number*</span></label>
         <div class="input-deli">
           <input
+            [ngClass]="{
+            'is-invalid':
+            checkoutForm.controls['phoneNumber'].dirty && checkoutForm.controls['phoneNumber'].errors?.['required'] && checkoutForm.controls['phoneNumber'].errors?.['pattern']
+          }"
+            formControlName="phoneNumber"
             type="text"
-            name="phonenumber"
-            [(ngModel)]="phonenumber"
+            name="phoneNumber"
             class="form-control"
             placeholder="Enter your phone number..."
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              checkoutForm.controls['phoneNumber'].dirty &&
+              checkoutForm.controls['phoneNumber'].errors
+            "
+          >
+            <div
+              class="text-danger title-error"
+              *ngIf="checkoutForm.controls['phoneNumber'].errors?.['required']"
+            >
+              *Phone Number is required
+            </div>
+            <div
+              class="text-danger title-error"
+              *ngIf="checkoutForm.controls['phoneNumber'].errors?.['pattern']"
+            >
+              *Please enter a valid phone number
+            </div>
+          </div>
+        </div>
+        <br />
+        <label class="label-input"><span>Note*</span></label>
+        <div class="input-deli">
+          <input
+            [ngClass]="{
+            'is-invalid':
+            checkoutForm.controls['description'].dirty && checkoutForm.controls['description'].errors?.['required']
+          }"
+            formControlName="description"
+            type="text"
+            name="description"
+            class="form-control"
+            placeholder="Enter note..."
           />
         </div>
         <hr />
         <div class="payment">
-          <div class="title-page">Mode of payment</div>
-
-          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          <div class="title-page">Payment Method</div>
+          <div
+            class="paypal-ngx"
+            [ngStyle]="
+              !checkoutForm.invalid
+                ? {}
+                : { opacity: '0.5', 'pointer-events': 'none' }
+            "
+          >
+            <ngx-paypal
+              style="text-align: center"
+              [config]="payPalConfig"
+            ></ngx-paypal>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

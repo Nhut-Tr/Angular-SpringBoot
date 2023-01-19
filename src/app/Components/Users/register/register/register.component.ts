@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/service/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -18,40 +19,71 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  registerForm!: FormGroup;
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
     private toast: NgToastService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.registerForm = this.formBuilder.group(
+      {
+        fullName: ['', [Validators.required, Validators.minLength(4)]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        email: ['', [Validators.email]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validator: this.ConfirmedValidator('password', 'confirmPassword'),
+      }
+    );
+  }
 
   onSubmit(): void {
     const { username, email, password, fullName } = this.form;
-
+    this.isLoading = true;
     this.authService.register(username, email, password, fullName).subscribe(
       (data) => {
-        console.log(data);
-
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.toast.success({
           detail: 'Success Message',
-          summary: 'Register success!',
+          summary: 'Please check your email for verification!',
           duration: 4000,
         });
+        this.isLoading = false;
         this.router.navigate(['/']);
       },
       (err) => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
         this.toast.error({
           detail: 'Fail Message',
-          summary: 'err.error.message',
+          summary: err.error.message,
           duration: 4000,
         });
+        this.isLoading = false;
       }
     );
+  }
+  ConfirmedValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (
+        matchingControl.errors &&
+        !matchingControl.errors['confirmPassword']
+      ) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmPassword: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }
